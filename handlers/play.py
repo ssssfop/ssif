@@ -1,3 +1,4 @@
+
 import os
 from asyncio.queues import QueueEmpty
 from os import path
@@ -164,7 +165,7 @@ def r_ply(type_):
                 InlineKeyboardButton("⏭", "تخطي")
             ],
             [
-                InlineKeyboardButton("🎸︙قائمه التشغيل ", "playlist"),
+                InlineKeyboardButton("🎸︙قائمه التحكم ", "playlist"),
             ],
             [       
                 InlineKeyboardButton("🔻الغاء", "cls")
@@ -395,7 +396,7 @@ async def m_cb(b, cb):
             if callsmusic.queues.is_empty(chet_id):
                 callsmusic.pytgcalls.leave_group_call(chet_id)
 
-                await cb.message.edit("•لا مزيد من قائمة الانتظار \ n • مغادرة الدردشة الصوتية")
+                await cb.message.edit("•لا مزيد من قائمة الانتظار \n • مغادرة الدردشة الصوتية")
             else:
                 callsmusic.pytgcalls.change_stream(
                     chet_id, callsmusic.queues.get(chet_id)["file"]
@@ -449,7 +450,7 @@ async def play(_, message: Message):
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                    await lel.edit(
-                        "<b> 🦹🏻 لاستخدامي ، يجب أن أكون مسؤولاً مع الأذونات: \ n \ n »_🍥_ حذف الرسائل __ \ n» 🗼 __ حظر المستخدمين __ \ n »__ 🎐مستخدمو AdAd __ \ n» __ 🎸__إدارة الدردشة الصوتية __ \ n \ n * * ثم اكتب / أعد التحميل </ b>",
+                        "<b> 🦹🏻 لاستخدامي ، يجب أن أكون مسؤولاً مع الأذونات: \n \n »_🍥_ حذف الرسائل __ \n» 🗼 __ حظر المستخدمين __ \n »__ 🎐مستخدمو AdAd __ \n» __ 🎸__إدارة الدردشة الصوتية __ \n \n * * ثم اكتب  أعد التحميل </ b>",
                     )
                     
                 try:
@@ -547,7 +548,7 @@ async def play(_, message: Message):
             views = results[0]["views"]
         except Exception as e:
             await lel.edit(
-                "🎸 **تعذر العثور على الأغنية التي طلبتها ** \ n \ n »** يرجى تقديم اسم الأغنية الصحيح أو تضمين اسم الفنان أيضًا**"
+                "🎸 **تعذر العثور على الأغنية التي طلبتها ** \n \n »** يرجى تقديم اسم الأغنية الصحيح أو تضمين اسم الفنان أيضًا**"
             )
             print(str(e))
             return
@@ -581,7 +582,7 @@ async def play(_, message: Message):
         try:
           results = YoutubeSearch(query, max_results=5).to_dict()
         except:
-          await lel.edit("🍥 **لم يتم اكتشاف اسم الأغنية ** \ n \ n »** يرجى تقديم اسم الأغنية التي تريد تشغيلها**")
+          await lel.edit("🍥 **لم يتم اكتشاف اسم الأغنية ** \n \n »** يرجى تقديم اسم الأغنية التي تريد تشغيلها**")
         # veez project
         try:
             toxxt = "\n"
@@ -648,7 +649,7 @@ async def play(_, message: Message):
                     InlineKeyboardButton("🎸 القناه", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
-            )
+           )
             requested_by = message.from_user.first_name
             await generate_cover(title, thumbnail)
             file_path = await converter.convert(youtube.download(url))   
@@ -663,9 +664,9 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"🎸 ** تمت إضافة المقطع الصوتي إلى قائمة الانتظار »**`\ n\ n {position} `\n \n🎪 ** الاسم: ** [{title [: 80]}] ({url}) \ n\ n🗼 ** المدة: **` {duration} `\n \n🍥 ** طلب من: ** {message.from_user.mention}",
+            caption=f"🎸 ** تمت الاضافه إلى قائمة الانتظار »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n📍 **الوقت:** `{duration}`\n🦹🏻 **تم التشغيل بواسه:** {message.from_user.mention}",
             reply_markup=keyboard
-        )
+          )
     else:
         chat_id = get_chat_id(message.chat)
         que[chat_id] = []
@@ -678,12 +679,12 @@ async def play(_, message: Message):
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
-            await lel.edit("🎸 ** لم يتم العثور على الدردشة الصوتية الرجاء تشغيل الدردشة الصوتية أولاً")
+            await lel.edit("😕 **لم يتم العثور على الدردشة الصوتية ** \n \n »الرجاء تشغيل الدردشة الصوتية أولاً")
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🎸 **الاسم:** [{title[:80]}]({url})\n \n🍥 **الحاله:** `{duration}`\n \n🎪 **طلب:** `قيد التشغيل`\n \n" 
-                   +f"🦹🏻 **بواسطه:** {message.from_user.mention}",
+            caption=f"🎸 **الاسم:** [{title[:80]}]({url})\n📍 **الوقت:** `{duration}`\n🗼  **حاله:** `التشغيل`\n" \
+                   +f"🦹🏻 **تم التشغيل بواسه:** {message.from_user.mention}",
             reply_markup=keyboard
         )
         os.remove("final.png")
@@ -746,7 +747,7 @@ async def lol_cb(b, cb):
                     InlineKeyboardButton("🎪القناه", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
-    )
+   )
     requested_by = useer_name
     await generate_cover(title, thumbnail)
     file_path = await converter.convert(youtube.download(url))
@@ -765,9 +766,9 @@ async def lol_cb(b, cb):
         await b.send_photo(
         chat_id,
         photo="final.png",
-        caption=f"🎸 ** تمت إضافة المقطع الصوتي إلى قائمة الانتظار »**\n\n{position} `\n\n🗼 ** Name: ** [{title [: 80]}] ({url})\n\n🍥 ** المدة: **` {duration} `\n\n   ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\ n🎪 ** طلب من: ** {r_by.mention}",
+        caption=f"🎸 **تمت الاضافه إلى قائمة الانتظار »** `{position}`\n\n🗼 **الاسم:** [{title[:80]}]({url})\n📍 **الوقت:** `{duration}`\n🦹🏻 **تم التشغيل بواسطه:** {r_by.mention}",
         reply_markup=keyboard,
-        )
+         )
     else:
         que[chat_id] = []
         qeue = que.get(chat_id)
@@ -784,8 +785,8 @@ async def lol_cb(b, cb):
         await b.send_photo(
         chat_id,
         photo="final.png",
-        caption=f"🎸 ** الاسم: ** [{title [: 80]}] ({url})\n\n🍥 ** Duration: ** `\n\n {duration}`\n\n🗼 ** الحالة: ** `قيد التشغيل`\n\n " 
-               +f"🎪 **طلب بواسطة:** {r_by.mention}",
+        caption=f"🎸 **الاسم:** [{title[:80]}]({url})\n📍 **الوقت:** `{duration}`\n🗼 **حاله:** `التشغيل`\n" \
+               +f"🦹🏻 **تم التشغيل بواسطه:** {r_by.mention}",
         reply_markup=keyboard,
         )
     if path.exists("final.png"):
@@ -821,7 +822,7 @@ async def ytplay(_, message: Message):
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "🎸 ** لاستخدامي ، يجب أن أكون مسؤولاً مع الأذونات: \ n \ n »❌ __ حذف الرسائل __ \ n» 🍥 __ حظر المستخدمين __ \ n »🦹🏻 __إضافة مستخدمين __ \ n» 🗼 __إدارة الدردشة الصوتية __ \ n \ n ** بعد ذلك اكتب / إعادة التحميل ****",
+                        "🎸 ** لاستخدامي ، يجب أن أكون مسؤولاً مع الأذونات: \n  »❌ __ حذف الرسائل __ \n» 🍥 __ حظر المستخدمين __ \n »🦹🏻 __إضافة مستخدمين __ \n» 🗼 __إدارة الدردشة الصوتية __ \n  ** بعد ذلك اكتب إعادة التحميل ****",
                     )
                     return
 
@@ -839,7 +840,7 @@ async def ytplay(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"🎸 ** حدث خطاء** 🎸 \ n \ n ** لا يمكن لـ {user.first_name} الانضمام إلى هذه المجموعة بسبب العديد من طلبات الانضمام .**"
+                        f"🎸 ** حدث خطاء** 🎸 \n \n ** لا يمكن لـ {user.first_name} الانضمام إلى هذه المجموعة بسبب العديد من طلبات الانضمام .**"
                         f"\n\n**او اضف @{ASSISTANT_NAME} لهذه المجموعة يدويًا ثم حاول مرة أخرى.**",
                     )
     try:
@@ -917,7 +918,7 @@ async def ytplay(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"🎸 ** تمت إضافة المقطع الصوتي إلى قائمة الانتظار »**`\n \n {position} `\n \n 🗼 ** Name: ** [{title [: 80]}] ({url}) \n \n🍥 ** المدة: **` {duration} `\n \n🎪 ** طلب من: ** {message.from_user.mention}",
+            caption=f"🗼 ** تمت الاضافه إلى قائمة الانتظار »** `{position}`\n\n🎸 **الاسم:** [{title[:80]}]({url})\n📍 **الوقت:** `{duration}`\n🦹🏻 **تم التشغيل بواسه:** {message.from_user.mention}",
             reply_markup=keyboard
         )
     else:
@@ -932,13 +933,14 @@ async def ytplay(_, message: Message):
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
-            await lel.edit("🎸 ** لم يتم العثور على الدردشة الصوتية ** \ n \ n »الرجاء تشغيل الدردشة الصوتية أولاً")
+            await lel.edit("🎸 *لم يتم العثور على الدردشة الصوتية**\n\n» الرجاء تشغيل الدردشة الصوتية أولاً")
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🗼 ** الاسم: ** [{title [: 80]}] ({url})\n \n🍥 ** Duration: ** `{duration}`\n \n🎸 ** الحالة: ** `قيد التشغيل`\n \n" 
-                   +f"🎪 **طلب بواسطة:** {message.from_user.mention}",
+            caption=f"🎸 **الاسم:** [{title[:80]}]({url})\n📍 **الوقت:** `{duration}`\n🗼 **حاله:** `التشغيل`\n" \
+                   +f"🦹🏻 **تم التشغيل بواسطه:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
         return await lel.delete()
+      
