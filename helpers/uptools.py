@@ -1,4 +1,3 @@
-
 import socket
 
 import heroku3
@@ -16,7 +15,7 @@ async def _netcat(host, port, content):
         return data
     s.close()
 
-
+    
 async def paste(content):
     link = await _netcat("ezup.dev", 9999, content)
     return link
