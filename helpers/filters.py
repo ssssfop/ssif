@@ -1,5 +1,5 @@
 # Calls Music 1 - Telegram bot for streaming audio in group calls
-# Copyright (C) 2021  Roj Serbest
+# Copyright (C) 2021 amort
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -15,16 +15,17 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from typing import Union, List
+from typing import List, Union
 
 from pyrogram import filters
 
 from config import COMMAND_PREFIXES
 
 other_filters = filters.group & ~filters.edited & ~filters.via_bot & ~filters.forwarded
-other_filters2 = filters.private & ~filters.edited & ~filters.via_bot & ~filters.forwarded
+other_filters2 = (
+    filters.private & ~filters.edited & ~filters.via_bot & ~filters.forwarded
+)
 
 
 def command(commands: Union[str, List[str]]):
     return filters.command(commands, COMMAND_PREFIXES)
-

