@@ -1,9 +1,14 @@
+
 {
     "name": "Amort Music Bot",
-    "logo": "https://telegra.ph/file/97b8759e86bf092bf2acb.png",
+    "logo": "https://telegra.ph/file/6b6d7362cd64fff97250b.jpg",
     "description": "amort music allow you to stream music trought the telegram voice chat feature.",
-    "keywords": ["music", "voice chat", "telegram"],
-    "repository": "https://github.com/ssssfssssfssssfs/ssssfssssfssssf",
+    "keywords": [
+        "music", 
+        "voice chat", 
+        "telegram"
+    ],
+    "repository": "https://github.com/ssssfssssfssssfs/musicv",
     "stack": "container",
     "env": {
         "SESSION_NAME": {
@@ -30,7 +35,7 @@
             "value": ""
         },
         "LOG_CHANNEL": {
-            "description": "create a private channel and get the channel id, add your bot as admin to the channel too",
+            "description": "create a private channel and get the channel id (give the channel username/link to bot @username_to_id_bot and get the channel id), add your bot as admin to the channel too",
             "required": true,
             "value": ""
         },
@@ -42,17 +47,22 @@
         "ASSISTANT_NAME": {
             "description": "fill with the assistant username without @",
             "required": true,
-            "value": "amortasisstant"
+            "value": "amort"
         },
         "BG_IMAGE": {
             "description": "fill with your costum background image link",
             "required": false,
-            "value": "https://telegra.ph/file/97b8759e86bf092bf2acb.png"
+            "value": "https://telegra.ph/file/8628c642a266a22effd8c.png"
         },
         "OWNER_NAME": {
-            "description": "fill with your username without @",
+            "description": "fill with your telegram username without @",
             "required": false,
-            "value": "hama_refaat"
+            "value": "Hama_Refaat"
+        },
+        "ALIVE_NAME": {
+            "description": "fill with the nickname of your telegram account",
+            "required": false,
+            "value": "Hama Refaat"
         },
         "API_ID": {
             "description": "your Api ID from my.telegram.org/apps",
@@ -67,31 +77,37 @@
             "required": true
         },
         "DURATION_LIMIT": {
-            "description": "max duration for music to download (in minutes).",
+            "description": "max duration for music to download (in minutes, default is 40).",
             "required": true,
             "value": "40"
         },
         "UPDATES_CHANNEL": {
-            "description": "if you have channel fill the channel username here without @",
+            "description": "if you have channel, fill the channel username here without @",
             "required": false,
-            "value": "kurd_bots"
+            "value": "amortmusic"
         },
         "GROUP_SUPPORT": {
-            "description": "if you have group fill the group username here without @",
+            "description": "if you have group, fill the group username here without @",
             "required": false,
             "value": "kurd_botschat"
         }
     },
+    "addons": [],
     "buildpacks": [
-    {
-      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
-    },
-    {
-      "url": "heroku/python"
-     },
-    {
-      "url": "heroku/nodejs"
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
     }
-    
-  ]
 }
