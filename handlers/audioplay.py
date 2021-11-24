@@ -1,5 +1,5 @@
-from os import path
 
+from os import path
 import converter
 from callsmusic import callsmusic, queues
 from config import (
@@ -15,8 +15,6 @@ from helpers.filters import command, other_filters
 from helpers.gets import get_file_name
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
-
 @Client.on_message(command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 async def stream(_, message: Message):
 
@@ -27,10 +25,10 @@ async def stream(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="📍 ملفات السورس ",
+                        text="📁: ملفات السورس",
                         url=f"https://t.me/{GROUP_SUPPORT}"),
                     InlineKeyboardButton(
-                        text="📍 قناه السورس",
+                        text="🐉: السورس",
                         url=f"https://t.me/{UPDATES_CHANNEL}")
                 ]
             ]
@@ -39,7 +37,7 @@ async def stream(_, message: Message):
     audio = message.reply_to_message.audio if message.reply_to_message else None
 
     if not audio:
-        return await lel.edit("🗼 **الرجاء الرد على ملف صوتي برقية**")
+        return await lel.edit("💭 **الرجاء الرد على ملف صوتي برقية**")
     if round(audio.duration / 60) > DURATION_LIMIT:
         return await lel.edit(f"❌ **الموسيقى مع مدة أكثر من** `{DURATION_LIMIT}` **دقائق، لا يمكن أن تلعب !**")
 
@@ -56,16 +54,17 @@ async def stream(_, message: Message):
         position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
             photo=f"{QUE_IMG}",
-            caption=f"🗼 **تعقب تمت إضافته إلى قائمة الانتظار »** `{position}`\n ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n🎸 **اسم:** {title[:50]}\n ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n🗼 **دقاق:** `{duration}` \n┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n🦹🏻 **طلب من قبل:** {costumer}",
+            caption=f"🗼 **تعقب تمت إضافته إلى قائمة الانتظار »** `{position}`\n\n🎸 **الاسم:** {title[:50]}\n📍 **دقاق:** `{duration}`\n🦹 **تم التشغيل بواسطه:** {costumer}",
             reply_markup=keyboard,
         )
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
             photo=f"{AUD_IMG}",
-            caption=f"🎸 **اسم:** {title[:50]}\n ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n🍥 **دقاق:** `{duration}`\n ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n🗼 **حالة:** `تشغيل الأغنية`\n ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n" \
-                   +f"🦹🏻 **طلب من قبل:** {costumer}",
+            caption=f"🎸 **الاسم:** {title[:50]}\n📍 **الوقت:** `{duration}`\n🗼 **حالة:** `التشغيل`\n" \
+                   +"f🦹🏻 **تم التشغيل بواسطه:** {costumer}",
             reply_markup=keyboard,
         )
 
     return await lel.delete()
+

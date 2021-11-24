@@ -32,10 +32,10 @@ async def _human_time_duration(seconds):
 @Client.on_message(command(["start", f"start@{BOT_USERNAME}"]) & filters.private & ~filters.edited)
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""b> 🎪 ** مرحبًا {message.from_user.first_name} ** \ n
-🎪 ** [{BOT_NAME}] (https://t.me/ {BOT_USERNAME}) يتيح لك تشغيل الموسيقى في مجموعات من خلال الدردشات الصوتية الجديدة في Telegram! **
+        f""" 🎸 ︙ ** مرحبًا {message.from_user.first_name} ** \n
+ **   يتيح لك تشغيل الموسيقى في مجموعات من خلال الدردشات الصوتية الجديدة في الاتصال Telegram! **
 
-🎸 ** اكتشف جميع أوامر الروبوت وكيفية عملها من خلال النقر على زر »📚 الأوامر! **
+🎸︙ ** اكتشف جميع أوامر الروبوت وكيفية عملها من خلال النقر على زر »📚 الأوامر! **
 
  **لمعرفة كيفية استخدام هذا الروبوت ، يرجى النقر فوق »🗼︙دليل الاستخدام! **
 </ b>""",
@@ -49,7 +49,7 @@ async def start_(client: Client, message: Message):
                         "🗼︙دليل الاستخدام", callback_data="cbhowtouse")
                 ],[
                     InlineKeyboardButton(
-                         "📚 الأوامر", callback_data="cbcmds"
+                         "📚︙الأوامر", callback_data="cbcmds"
                     ),
                     InlineKeyboardButton(
                         "🐉︙مطور السورس", url=f"https://t.me/{OWNER_NAME}")
@@ -72,7 +72,7 @@ async def start(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        f"""✅ ** الروبوت قيد التشغيل ** \ n <b> 💠 ** وقت التشغيل: ** </ b> `{uptime}`""",
+        f"""✅ ** الروبوت قيد التشغيل ** \n <b> 💠 ** وقت التشغيل: ** </ b> `{uptime}`""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -162,7 +162,7 @@ async def get_uptime(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        "🎸 حالة البوت: \ n"
+        "🎸 حالة البوت: \n"
         f"• *مدة التشغيل:** `{uptime}`\n"
         f"• ** وقت البدء: ** `{START_TIME_ISO}`"
     )
