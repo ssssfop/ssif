@@ -1,10 +1,8 @@
 import requests
-from pytgcalls import idle
-from callsmusic import run
-from handlers import __version__
 from pyrogram import Client as Bot
-from config import API_HASH, API_ID, BG_IMAGE, BOT_TOKEN
 
+from callsmusic import run
+from config import API_ID, API_HASH, BOT_TOKEN, BG_IMAGE
 
 response = requests.get(BG_IMAGE)
 with open("./etc/foreground.png", "wb") as file:
@@ -19,8 +17,7 @@ bot = Bot(
     plugins=dict(root="handlers"),
 )
 
-print(f"[INFO]: amort MUSIC v{__version__} STARTED !")
+print("[INFO]: AMORTMUSIC STARTED!")
 
 bot.start()
 run()
-idle()
