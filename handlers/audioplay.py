@@ -1,4 +1,3 @@
-# Copyright (C) 2021 amort Music-Project
 
 from os import path
 import converter
@@ -15,70 +14,57 @@ from handlers.play import convert_seconds
 from helpers.filters import command, other_filters
 from helpers.gets import get_file_name
 from pyrogram import Client
-from pytgcalls.types.input_stream import InputAudioStream
-from pytgcalls.types.input_stream import InputStream
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
-
 @Client.on_message(command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 async def stream(_, message: Message):
+
+    lel = await message.reply("🔁 **معالجة** صوت...")
     costumer = message.from_user.mention
-    lel = await message.reply_text("🔁 **processing** sound...")
 
     keyboard = InlineKeyboardMarkup(
-        [
             [
-                InlineKeyboardButton(
-                    text="✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"
-                ),
-                InlineKeyboardButton(
-                    text="🌻 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
-                ),
+                [
+                    InlineKeyboardButton(
+                        text="📁: ملفات السورس",
+                        url=f"https://t.me/{GROUP_SUPPORT}"),
+                    InlineKeyboardButton(
+                        text="🐉: السورس",
+                        url=f"https://t.me/{UPDATES_CHANNEL}")
+                ]
             ]
-        ]
-    )
-
-    audio = message.reply_to_message.audio if message.reply_to_message else None
-    if not audio:
-        return await lel.edit("💭 **please reply to a telegram audio file**")
-    if round(audio.duration / 60) > DURATION_LIMIT:
-        return await lel.edit(
-            f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
         )
 
-    title = audio.title
+    audio = message.reply_to_message.audio if message.reply_to_message else None
+
+    if not audio:
+        return await lel.edit("💭 **الرجاء الرد على ملف صوتي برقية**")
+    if round(audio.duration / 60) > DURATION_LIMIT:
+        return await lel.edit(f"❌ **الموسيقى مع مدة أكثر من** `{DURATION_LIMIT}` **دقائق، لا يمكن أن تلعب !**")
+
+    # tede_ganteng = True
     file_name = get_file_name(audio)
+    title = audio.title
     duration = convert_seconds(audio.duration)
     file_path = await converter.convert(
         (await message.reply_to_message.download(file_name))
-        if not path.isfile(path.join("downloads", file_name))
-        else file_name
+        if not path.isfile(path.join("downloads", file_name)) else file_name
     )
-    chat_id = message.chat.id
-    ACTV_CALLS = []
-    for x in callsmusic.pytgcalls.active_calls:
-        ACTV_CALLS.append(int(x.chat_id))    
-    if chat_id in ACTV_CALLS:
-        position = await queues.put(chat_id, file=file_path)
+    # ambil aja bg
+    if message.chat.id in callsmusic.pytgcalls.active_calls:
+        position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
             photo=f"{QUE_IMG}",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** {title[:50]}\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {costumer}",
+            caption=f"🗼 **تعقب تمت إضافته إلى قائمة الانتظار »** `{position}`\n\n🎸 **الاسم:** {title[:50]}\n📍 **دقاق:** `{duration}`\n🦹 **تم التشغيل بواسطه:** {costumer}",
             reply_markup=keyboard,
         )
     else:
-        await callsmusic.pytgcalls.join_group_call(
-            chat_id, 
-            InputStream(
-                InputAudioStream(
-                    file_path,
-                ),
-            ),
-        )
+        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
             photo=f"{AUD_IMG}",
-            caption=f"🏷 **Name:** {title[:50]}\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {costumer}",
+            caption=f"🎸 **الاسم:** {title[:50]}\n📍 **الوقت:** `{duration}`\n🗼 **حالة:** `التشغيل`\n" \
+                   +"f🦹🏻 **تم التشغيل بواسطه:** {costumer}",
             reply_markup=keyboard,
         )
 
-    return await lel.delete() 
+    return await lel.delete()
+
